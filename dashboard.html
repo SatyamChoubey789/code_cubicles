@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EcoSphere City</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>EcoSphere City Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Key Features</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="dashboard">
+        <h2>Real-Time Monitoring</h2>
+        <div class="charts-container">
+            <div class="chart-item">
+                <canvas id="energyChart"></canvas>
+            </div>
+            <div class="chart-item">
+                <canvas id="waterChart"></canvas>
+            </div>
+            <div class="chart-item">
+                <canvas id="trafficChart"></canvas>
+            </div>
+            <div class="chart-item">
+                <canvas id="wasteChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Energy Usage Chart
+        const energyCtx = document.getElementById('energyChart').getContext('2d');
+        const energyChart = new Chart(energyCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                datasets: [{
+                    label: 'Energy Usage (kWh)',
+                    data: [30, 50, 70, 60, 90, 100, 150, 200, 250, 300],
+                    borderColor: '#40916c',
+                    backgroundColor: 'rgba(64, 145, 108, 0.2)',
+                    tension: 0.1
+                }]
+            }
+        });
+
+        // Water Usage Chart
+        const waterCtx = document.getElementById('waterChart').getContext('2d');
+        const waterChart = new Chart(waterCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                datasets: [{
+                    label: 'Water Usage (L)',
+                    data: [500, 400, 600, 450, 700, 650, 600, 750, 800, 850],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                }]
+            }
+        });
+
+        // Traffic Flow Chart
+        const trafficCtx = document.getElementById('trafficChart').getContext('2d');
+        const trafficChart = new Chart(trafficCtx, {
+            type: 'line',
+            data: {
+                labels: ['6 AM', '9 AM', '12 PM', '3 PM', '6 PM', '9 PM'],
+                datasets: [{
+                    label: 'Traffic Flow (Vehicles per hour)',
+                    data: [300, 700, 1200, 800, 1500, 900],
+                    borderColor: '#ff6b6b',
+                    backgroundColor: 'rgba(255, 107, 107, 0.2)',
+                    tension: 0.1
+                }]
+            }
+        });
+
+        // Waste Collection Chart
+        const wasteCtx = document.getElementById('wasteChart').getContext('2d');
+        const wasteChart = new Chart(wasteCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Collected', 'Remaining'],
+                datasets: [{
+                    label: 'Waste Collection',
+                    data: [70, 30],
+                    backgroundColor: ['#40916c', '#ff6b6b'],
+                }]
+            }
+        });
+
+        // Simulating Real-time Data for Energy Usage
+        setInterval(() => {
+            const newEnergyUsage = Math.floor(Math.random() * 100) + 50;
+            energyChart.data.datasets[0].data.push(newEnergyUsage);
+            energyChart.data.labels.push('New');
+            energyChart.update();
+        }, 3000);
+
+        setInterval(() => {
+            const newWaterUsage = Math.floor(Math.random() * 100) + 50;
+            waterChart.data.datasets[0].data.push(newWaterUsage);
+            waterChart.data.labels.push('New');
+            waterChart.update();
+        }, 3000);
+
+        setInterval(() => {
+            const newTrafficUsage = Math.floor(Math.random() * 100) + 50;
+            trafficChart.data.datasets[0].data.push(newTrafficUsage);
+            trafficChart.data.labels.push('New');
+            trafficChart.update();
+        }, 3000);
+    </script>
+</body>
+
+</html>
